@@ -21,18 +21,19 @@ public class EmployeeController {
 
     // get all employees
     @GetMapping("/employees")
-    public List<Employee> getAllEmployees(){
+    public List<Employee> getAllEmployees() throws InterruptedException {
+//        Thread.sleep(500);
         return employeeRepository.findAll();
     }
 
     // get employee by id rest api
-    @GetMapping("/employee/{id}")
+    @GetMapping("/employees/{id}")
     public Employee getEmployeeById(@PathVariable Long id){
         return employeeRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not exist with id :" + id));
     }
 
     // create employee rest api
-    @PostMapping("/employee")
+    @PostMapping("/employees")
     public Employee createEmployee(@RequestBody Employee employee) {
         return employeeRepository.save(employee);
     }
