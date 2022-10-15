@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.everestbackend.model.Employee;
 import com.example.everestbackend.service.EmployeeService;
 
+import jakarta.validation.Valid;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1")
@@ -49,7 +51,8 @@ public class EmployeeController {
 
 	// update employee rest api
 	@PutMapping("/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employeeDetails) {
+	public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,
+			@Valid @RequestBody Employee employeeDetails) {
 		Employee employee = employeeService.updateEmployee(id, employeeDetails);
 
 		return ResponseEntity.ok(employee);
