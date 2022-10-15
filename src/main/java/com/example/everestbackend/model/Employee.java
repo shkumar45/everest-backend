@@ -1,8 +1,6 @@
 package com.example.everestbackend.model;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "\"employee\"")
