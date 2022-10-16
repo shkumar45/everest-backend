@@ -29,17 +29,23 @@ public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
 
-// get all employees
+	// get all employees
 	@GetMapping("/employees")
 	public List<Employee> getAllEmployees() throws InterruptedException {
-//        Thread.sleep(500);
+		// Thread.sleep(500);
 		return employeeService.findAll();
 	}
 
 	// get employee by id rest api
-	@GetMapping("/employees/{id}")
+	@GetMapping("/employee/{id}")
 	public Employee getEmployeeById(@PathVariable Long id) {
 		return employeeService.getEmployeeById(id);
+
+	}
+
+	@GetMapping("/employees/{firstName}")
+	public List<Employee> getEmployeesByfirstName(@PathVariable String firstName) {
+		return employeeService.getEmployeesByFirstName(firstName);
 
 	}
 

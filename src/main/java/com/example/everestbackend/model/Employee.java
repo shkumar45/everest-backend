@@ -17,7 +17,7 @@ public class Employee {
 	private long id;
 
 	@Column(name = "first_name")
-	@Size(min = 2, max = 25)
+	@Size(min = 2, max = 25, message = "First Name should be of length between 2 and 25")
 	private String firstName;
 
 	@Size(min = 2, max = 25)
