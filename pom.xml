@@ -13,9 +13,10 @@
 	<name>everest-backend</name>
 	<description>everest-backend</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>16</java.version>
 	</properties>
 	<dependencies>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
