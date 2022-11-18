@@ -1,4 +1,4 @@
-package com.everest.backend.exception;
+package com.everest.employee.exception;
 
 import java.time.LocalDateTime;
 
