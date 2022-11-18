@@ -1,10 +1,10 @@
-package com.example.everestbackend;
+package com.everest.employee;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class EverestBackendApplicationTests {
+public class EverestEmployeeApplicationTest {
     @Test
     void contextLoads() {
     }

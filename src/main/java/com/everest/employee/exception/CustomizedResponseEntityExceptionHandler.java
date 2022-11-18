@@ -1,10 +1,9 @@
-package com.everest.backend.exception;
+package com.everest.employee.exception;
 
 import java.time.LocalDateTime;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -42,7 +41,7 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatusCode status, WebRequest request) {
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 		fieldError = ex.getFieldError();
 		ErrorDetails errorDetails = new ErrorDetails(LocalDateTime.now(),
 				fieldError.getDefaultMessage(),
