@@ -47,7 +47,7 @@ public class EmployeeController {
 
 	}
 
-	@GetMapping("/{firstName}")
+	@GetMapping("/GetByFirstName/{firstName}")
 	public List<Employee> getEmployeesByfirstName(@PathVariable String firstName) {
 		return employeeService.getEmployeesByFirstName(firstName);
 

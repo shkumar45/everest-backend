@@ -51,6 +51,7 @@ public class EmployeeService {
 		employee.setFirstName(employeeDetails.getFirstName());
 		employee.setLastName(employeeDetails.getLastName());
 		employee.setEmail(employeeDetails.getEmail());
+		employee.setDepartmentId(employeeDetails.getDepartmentId());
 
 		Employee updatedEmployee = employeeRepository.save(employee);
 		return updatedEmployee;
