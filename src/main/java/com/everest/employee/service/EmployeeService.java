@@ -10,6 +10,9 @@ import com.everest.employee.VO.ResponseTemplateVO;
 import com.everest.employee.exception.ResourceNotFoundException;
 import com.everest.employee.model.Employee;
 import com.everest.employee.repository.EmployeeRepository;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 import org.springframework.web.client.RestTemplate;
 
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +25,8 @@ public class EmployeeService {
 
 	@Autowired
 	private RestTemplate restTemplate;
+
+	private static final String EMP_SERVICE = "employeeService";
 
 	public List<Employee> findAll() {
 		return employeeRepository.findAll();
@@ -51,6 +56,7 @@ public class EmployeeService {
 		employee.setFirstName(employeeDetails.getFirstName());
 		employee.setLastName(employeeDetails.getLastName());
 		employee.setEmail(employeeDetails.getEmail());
+		employee.setDepartmentId(employeeDetails.getDepartmentId());
 
 		Employee updatedEmployee = employeeRepository.save(employee);
 		return updatedEmployee;
@@ -63,10 +69,16 @@ public class EmployeeService {
 
 	}
 
+	@CircuitBreaker(name = EMP_SERVICE, fallbackMethod = "getUserWithDepartmentFallback")
 	public ResponseTemplateVO getUserWithDepartment(Long employeeId) {
 		log.info("Inside getUserWithDepartment of UserService");
 		ResponseTemplateVO vo = new ResponseTemplateVO();
 		Employee employee = this.getEmployeeById(employeeId);
+
+		// Department department = restTemplate
+		// .getForObject("http://DEPARTMENT-SERVICE/api/v1/departments/" +
+		// employee.getDepartmentId(),
+		// Department.class);
 
 		Department department = restTemplate
 				.getForObject("http://DEPARTMENT-SERVICE/api/v1/departments/" + employee.getDepartmentId(),
@@ -77,4 +89,18 @@ public class EmployeeService {
 
 		return vo;
 	}
+
+	public ResponseTemplateVO getUserWithDepartmentFallback(Long employeeId, Exception e) {
+		log.info("Inside fallback of getUserWithDepartment of UserService");
+		ResponseTemplateVO vo = new ResponseTemplateVO();
+		Employee employee = this.getEmployeeById(employeeId);
+
+		Department department = new Department(0L, "Other", "OAK", "OTH");
+
+		vo.setEmployee(employee);
+		vo.setDepartment(department);
+
+		return vo;
+	}
+
 }
